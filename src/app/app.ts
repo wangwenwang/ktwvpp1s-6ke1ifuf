@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 export interface TreeNodeInterface {
   key: string;
@@ -15,14 +16,26 @@ export interface TreeNodeInterface {
 
 @Component({
   selector: 'nz-demo-table-expand-children',
-  imports: [NzTableModule],
+  imports: [NzTableModule, NzButtonModule],
+  styles: [
+    `
+      :host ::ng-deep nz-table.table-bg-222 .ant-table-wrapper,
+      :host ::ng-deep nz-table.table-bg-222 .ant-table,
+      :host ::ng-deep nz-table.table-bg-222 .ant-table-container,
+      :host ::ng-deep nz-table.table-bg-222 .ant-table-thead > tr > th,
+      :host ::ng-deep nz-table.table-bg-222 .ant-table-tbody > tr > td {
+        background-color: #222 !important;
+      }
+    `
+  ],
   template: `
-    <nz-table #expandTable [nzData]="listOfMapData" nzTableLayout="fixed">
+    <nz-table #expandTable class="table-bg-222" [nzData]="listOfMapData" nzTableLayout="fixed">
       <thead>
         <tr>
           <th>Name</th>
           <th>Age</th>
           <th>Address</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -40,6 +53,10 @@ export interface TreeNodeInterface {
                 </td>
                 <td>{{ item.age }}</td>
                 <td>{{ item.address }}</td>
+                <td>
+                  <a nz-button nzType="link" nzSize="small">新增</a>
+                  <a nz-button nzType="link" nzSize="small">编辑</a>
+                </td>
               </tr>
             }
           }
